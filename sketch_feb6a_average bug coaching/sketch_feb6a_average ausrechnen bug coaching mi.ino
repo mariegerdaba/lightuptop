@@ -1,22 +1,22 @@
 
 #include <FastLED.h>
 
-// How many leds in your strip?:
+// How many leds in your strip?
 #define NUM_LEDS 60
 #define DATA_PIN 2
 
 uint8_t gHue = 0;
 
-// Define the array of leds:
+// Define the array of leds
 CRGB leds[NUM_LEDS];
 
-// Initialize sound sensor:
+// Initialize sound sensor
 int Analog_Eingang = A5;
-// variable to store the value coming from the sensor:
-int sensorValue; 
+// variable to store the value coming from the sensor
+int sensorValue;
 int Colouractive = false;
-int storeValues[200]; 
-int Summe = 0;
+int storeValues[200]; //unsigned machen?
+int Summe = 0; //uint UNSIGNED INTEGER, IMMER POS, int32bit
 int average = 0;
 int l; 
 
@@ -36,7 +36,7 @@ void setup() {
 
 
 void loop() { 
-  sensorValue = analogRead (Analog_Eingang);
+  sensorValue[200] = analogRead (Analog_Eingang);
 
    
   //  delay(200);
@@ -49,24 +49,23 @@ void loop() {
 
  for (l= 0; l < 200; l++) 
     { 
-  
-    storeValues[l] =  sensorValue;
+  //storeValues[l] =  sensorValue[l];
+  //Problem: sensorValue ist ein einzelner Wert, kein Array in dem mehrere Zahlen gespeichert werden 
+    storeValues[l] =  sensorValue[counter];
     delay(200);
     Serial.println ("STORE: ");
     Serial.println (storeValues[l]);
 
-    // Serial.println ("%d ", storeValues[1]);
-    // Serial.println ("%id ", storeValues[5]);
-    // Serial.println ("%id ", storeValues[100]);
-    // Serial.println ("%id ", storeValues[200]);
+
+    
 
     //Summe = Summe + analogRead(Analog_Eingang);
     // delay (20);
-  //  };
-
+ };
+// counter/index der jedes mal hoch geht sensorValue[counter]
    
  
- for (l= 0; l < 3; l++) 
+ for (l= 0; l <= 3; l++) 
     { 
   
     //storeValues[i] = analogRead (Analog_Eingang);
@@ -77,7 +76,7 @@ void loop() {
   // Serial.println (Summe);
  
   // average = (Summe*(-1)) / 200;    
-  // average = Summe / 200;    
+  average = Summe / 200;    
 
  //delay (200);
 //  Serial.println ("Average: ");
@@ -89,13 +88,13 @@ int i;
 int c;
 uint8_t gHue = 0;
 
-// if (Colouractive == true) {
-//     for(c=0; c<NUM_LEDS; c++) {
-// //  leds[c].setBrightness(0);
-//     leds[c].setHue(gHue+=5);
-//     //FastLED.show();
-//   //FastLED.clear();
-//   }}
+if (Colouractive == true) {
+    for(c=0; c<NUM_LEDS; c++) {
+//  leds[c].setBrightness(0);
+    leds[c].setHue(gHue+=5);
+    //FastLED.show();
+  //FastLED.clear();
+  }}
 
 //int brightness
 //FastLED.setBrightness(0);
@@ -103,6 +102,7 @@ uint8_t gHue = 0;
   // Current value will be read 
 //  Serial.println (sensorValue);
  int equalize = (sensorValue-450);
+ 
  // int equalize = (sensorValue-Summe);
 
   {{
@@ -111,7 +111,7 @@ uint8_t gHue = 0;
 
     {   
      leds[i].fadeLightBy(64);
-     leds[i] = CRGB::Green;
+    //  leds[i] = CRGB::Green;
      //Colouractive = true;
      }
      
@@ -124,7 +124,7 @@ uint8_t gHue = 0;
 //else
   {
     //Serial.println (sensorValue);
-    for(i=0; i<NUM_LEDS; i++)
+    for(i=0; i<=NUM_LEDS; i++)
     {
       //FastLED.setBrightness(0);
       //leds[i] = CRGB::Black;
@@ -135,4 +135,5 @@ uint8_t gHue = 0;
 }
      FastLED.show();
   
-  }}}
+}}
+}
