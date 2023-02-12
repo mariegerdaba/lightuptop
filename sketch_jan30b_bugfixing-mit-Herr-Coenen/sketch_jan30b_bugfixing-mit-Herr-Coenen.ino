@@ -6,16 +6,17 @@
 #include <FastLED.h>
 
 // How many leds in your strip?
-#define NUM_LEDS 60
+#define NUM_LEDS 28
 #define DATA_PIN 2
+#define DATA_PIN 6
 
 // Define the array of leds
 CRGB leds[NUM_LEDS];
 
 // Initialize sound sensor
-int Analog_Eingang = A5;
+uint32_t Analog_Eingang = A5;
 //int Digital_Eingang = 5;
-int sensorValue; // variable to store the value coming from the sensor
+uint32_t sensorValue; // variable to store the value coming from the sensor
 
 //int threshold = 0;
 
@@ -40,7 +41,7 @@ void loop() {
   //int i;
 //int equalize = (sensorValue*0.06-1); //
 //negativ wert in positiven umrechnen
-int equalize = (sensorValue-500);
+int equalize = (sensorValue-510);
 int i;
 
   // Current value will be read 
@@ -58,7 +59,7 @@ int i;
   //if (sensorValue > 500 && sensorValue < 700)
   {{
 //    Serial.println (sensorValue);
-    for(i=0; i<equalize; i++)
+    for(i=0; i<equalize && i <= 27; i++)
     {
     leds[i] = CRGB::Green;
 }}
@@ -71,7 +72,7 @@ int i;
  // else
   {
     Serial.println (sensorValue);
-    for(i=0; i<59; i++)
+    for(i=0; i<27; i++)
     {
     leds[i] = CRGB::Black;
 }
