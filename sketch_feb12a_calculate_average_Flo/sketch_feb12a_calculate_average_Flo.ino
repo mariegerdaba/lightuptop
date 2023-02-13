@@ -82,7 +82,7 @@ void loop() {
  
  for (l= 0; l <= 200; l++) 
     { 
-  
+           
     //storeValues[i] = analogRead (Analog_Eingang);
     Summe = Summe + storeValues[l];
    };
