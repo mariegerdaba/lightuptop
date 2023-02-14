@@ -18,7 +18,8 @@ CRGB leds[NUM_LEDS];
 // Initialize sound sensor
 int Analog_Eingang = A5;
 // uint8_t gHue = 0;
-static int8_t hue = 0;
+//static int8_t hue = 0;
+static int hue = 0;
 //int hue = 0;
 int i;
 int c;
@@ -33,6 +34,8 @@ void setup() {
   //currentBlending = LINEARBLEND;
 
   pinMode (Analog_Eingang, INPUT);
+
+  FastLED.setBrightness(  BRIGHTNESS );
  
   Serial.begin (9600); // Serial output with 9600 bits per second
 
@@ -54,7 +57,6 @@ leds[c].setHue(hue+=5);
 }
 
 void loop() {
-  FastLED.setBrightness(  BRIGHTNESS );
 
   sensorValue = analogRead (Analog_Eingang);
   //Serial.println (sensorValue);
@@ -85,7 +87,13 @@ leds[i].maximizeBrightness();
 
   FastLED.show();
 
+  for(i=0; i<=NUM_LEDS; i++)
+  {   
+ leds[i] = CRGB::Black;
+  } 
+  
 
+  FastLED.show();
 
    //FastLED.delay(1000 / UPDATES_PER_SECOND);
     

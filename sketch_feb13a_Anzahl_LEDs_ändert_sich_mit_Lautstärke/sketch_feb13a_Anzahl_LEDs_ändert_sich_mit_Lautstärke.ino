@@ -5,7 +5,7 @@
 #define DATA_PIN 2
 //#define BRIGHTNESS 100
 #define LED_TYPE    WS2811
-// #define UPDATES_PER_SECOND 100
+#define UPDATES_PER_SECOND 10
 #define COLOR_ORDER GRB
 
 // Define the array of leds
@@ -27,12 +27,24 @@ void setup() {
 void loop() {
  sensorValue = analogRead (Analog_Eingang);
   Serial.println (sensorValue);
-  int equalize = (sensorValue-490);
-  //Serial.println (equalize);
 
-  for(i=0; i<=equalize; i++)
+//if ( equalize <= NUM_LEDS) {equalize = (sensorValue-500);}
+
+int equalize = (sensorValue-500);
+// Serial.println (equalize);
+
+  for(i=0; i<=equalize && i <=NUM_LEDS; i++)
   {   
  leds[i] = CRGB::Green;
+  } 
+  
+
+  FastLED.show();
+delay (20);
+int b; 
+  for(b=0; b<=NUM_LEDS; b++)
+  {   
+ leds[b] = CRGB::Black;
   } 
   
 
