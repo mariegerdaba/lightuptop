@@ -13,7 +13,7 @@ CRGB leds[NUM_LEDS];
 
 int Analog_Eingang = A5;
 int i;
-int sensorValue;
+uint16_t sensorValue;
 
 void setup() {
   delay( 3000 ); // power-up safety delay
@@ -30,24 +30,20 @@ void loop() {
 
 //if ( equalize <= NUM_LEDS) {equalize = (sensorValue-500);}
 
-int equalize = (sensorValue-500);
+int equalize = (sensorValue-480);
 // Serial.println (equalize);
 
-  for(i=0; i<=equalize && i <=NUM_LEDS; i++)
+  for(i=0; i<=equalize && i < NUM_LEDS; i++)
   {   
  leds[i] = CRGB::Green;
   } 
-  
-
   FastLED.show();
-delay (20);
+// delay (20);
 int b; 
-  for(b=0; b<=NUM_LEDS; b++)
+  for(b=0; b< NUM_LEDS; b++)
   {   
  leds[b] = CRGB::Black;
   } 
   
-
-  FastLED.show();
 
 }
