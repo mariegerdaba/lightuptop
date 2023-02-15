@@ -17,8 +17,6 @@ int a ;
 int b;
 int c;
 uint16_t sensorValue;
-//uint8_t hue = 0;
-static int hue = 0;
 
 //Mittelwert berechnen
 uint16_t storeValues[200];
@@ -30,13 +28,7 @@ void setup() {
   FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS);  // GRB ordering is typical
   pinMode (Analog_Eingang, INPUT);
   FastLED.setBrightness(  BRIGHTNESS );
- 
   Serial.begin (9600); // Serial output with 9600 bits per second
-
-// for(c=0; c<NUM_LEDS; c++) {
-// leds[c].setHue(hue+=5);
-// }
-//  FastLED.show();
 }
 
 void loop() {
@@ -58,7 +50,6 @@ storeValues[count] = analogRead (Analog_Eingang);
 
 
 // int size = 200; 
-
 //if ( equalize <= NUM_LEDS) {equalize = (sensorValue-500);}
 int equalize = (sensorValue-avg);
 // Serial.println (equalize);
@@ -66,7 +57,6 @@ int equalize = (sensorValue-avg);
   for(i=0; i<=equalize && i < NUM_LEDS; i++)
   {   
  leds[i] = CRGB::Green;
- //leds[i].maximizeBrightness();
   } 
   FastLED.show();
 // delay (20);
